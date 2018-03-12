@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>Hangman.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #999999; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,128,0); font-weight: bold; }
+.s3 { color: rgb(128,128,128); font-style: italic; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#c0c0c0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Hangman.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">com.company; 
+</span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+</span><span class="s0">import </span><span class="s1">java.util.Random; 
+</span><span class="s0">import </span><span class="s1">java.util.Scanner; 
+ 
+ 
+</span><span class="s0">public class </span><span class="s1">Hangman { 
+    </span><span class="s0">private </span><span class="s1">Random num; 
+    </span><span class="s0">private char </span><span class="s1">state=</span><span class="s2">'Y'</span><span class="s1">;</span><span class="s3">//y to play</span><span class="s1"> 
+    </span><span class="s0">public int </span><span class="s1">tries; 
+    </span><span class="s0">private </span><span class="s1">StringBuffer displayWord; 
+    Scanner reader = </span><span class="s0">new </span><span class="s1">Scanner(System.in); 
+    </span><span class="s0">public char </span><span class="s1">guess=</span><span class="s2">'a'</span><span class="s1">; 
+    String word=</span><span class="s2">&quot;computer&quot;</span><span class="s1">;</span><span class="s3">//default word</span><span class="s1"> 
+    </span><span class="s0">public int </span><span class="s1">t=</span><span class="s4">0</span><span class="s1">;</span><span class="s3">//counts tries</span><span class="s1"> 
+ 
+    </span><span class="s3">//constructor</span><span class="s1"> 
+    </span><span class="s0">public </span><span class="s1">Hangman() { 
+        num = </span><span class="s0">new </span><span class="s1">Random(); 
+        createDisplayWord(); 
+ 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">setState(){ 
+        System.out.print(</span><span class="s2">&quot;Would you like to play Hangman? Y or N only input allowed.&quot;</span><span class="s1">); 
+        state = reader.next().charAt(</span><span class="s4">0</span><span class="s1">); 
+    } 
+ 
+    </span><span class="s0">public int </span><span class="s1">getState(){ 
+        </span><span class="s0">return </span><span class="s1">state; 
+    } 
+ 
+    </span><span class="s0">private boolean </span><span class="s1">updateDisplayWord(</span><span class="s0">char </span><span class="s1">guess) { 
+        </span><span class="s0">boolean </span><span class="s1">right = </span><span class="s0">false</span><span class="s1">; 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">1</span><span class="s1">; i &lt;= word.length(); i++) { 
+            </span><span class="s0">if </span><span class="s1">(word.charAt(i) == guess) { 
+                displayWord.replace(</span><span class="s4">2 </span><span class="s1">* i, </span><span class="s4">2 </span><span class="s1">* i + </span><span class="s4">1</span><span class="s1">, Character.toString(guess)); 
+                right = </span><span class="s0">true</span><span class="s1">; 
+            } 
+        } 
+        </span><span class="s0">return </span><span class="s1">right; 
+ 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">createDisplayWord() { 
+        displayWord = </span><span class="s0">new </span><span class="s1">StringBuffer(</span><span class="s2">&quot;_&quot;</span><span class="s1">); 
+        System.out.println(</span><span class="s2">&quot; &quot;</span><span class="s1">); 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">1</span><span class="s1">; i &lt; word.length(); i++) { 
+ 
+            displayWord.append(</span><span class="s2">&quot; _&quot;</span><span class="s1">); 
+        } 
+    } 
+ 
+    </span><span class="s0">public </span><span class="s1">String getDisplayWord(){ 
+        System.out.println(displayWord.toString()); 
+        </span><span class="s0">return </span><span class="s1">displayWord.toString(); 
+    } 
+ 
+    </span><span class="s0">public boolean </span><span class="s1">test(</span><span class="s0">char </span><span class="s1">guess){ 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s4">0</span><span class="s1">; i&lt;word.length(); i++) { 
+            </span><span class="s0">if </span><span class="s1">(word.charAt(i)==guess) { 
+                displayWord.replace(</span><span class="s4">2 </span><span class="s1">* i, </span><span class="s4">2 </span><span class="s1">* i + </span><span class="s4">1</span><span class="s1">, Character.toString(guess)); 
+                </span><span class="s0">return true</span><span class="s1">; 
+            } 
+        } 
+        </span><span class="s0">return false</span><span class="s1">; 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">playGame() { 
+        getDisplayWord(); 
+ 
+        System.out.print(</span><span class="s2">&quot; Guess a letter &quot;</span><span class="s1">); 
+        guess = reader.next().charAt(</span><span class="s4">0</span><span class="s1">); 
+ 
+        </span><span class="s0">boolean </span><span class="s1">right = test(guess); 
+ 
+        </span><span class="s0">if </span><span class="s1">(right == </span><span class="s0">false</span><span class="s1">) { 
+            </span><span class="s0">if </span><span class="s1">(t == </span><span class="s4">6</span><span class="s1">) { 
+                System.out.print(</span><span class="s2">&quot;You've lost.&quot;</span><span class="s1">); 
+                setState(); 
+            } 
+            t=t++; 
+            System.out.println(</span><span class="s2">&quot;Not in word&quot;</span><span class="s1">); 
+ 
+            playGame(); 
+ 
+        } 
+        </span><span class="s0">else if </span><span class="s1">(displayWord.indexOf(</span><span class="s2">&quot; _ &quot;</span><span class="s1">) &gt;= </span><span class="s4">0</span><span class="s1">) { 
+            System.out.println(right); 
+            state = </span><span class="s2">'Y'</span><span class="s1">; 
+            playGame(); 
+        } 
+        </span><span class="s0">else </span><span class="s1">{ 
+            System.out.print(</span><span class="s2">&quot;You won!&quot;</span><span class="s1">); 
+            System.exit(</span><span class="s4">0</span><span class="s1">); 
+        } 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">startNewGame() { 
+        setState(); 
+        System.out.print(state); 
+        </span><span class="s0">if </span><span class="s1">(state==</span><span class="s2">'Y'</span><span class="s1">){ 
+            playGame(); 
+        } 
+    } 
+    </span><span class="s0">public static void </span><span class="s1">main(String[] args) { 
+ 
+        Hangman h = </span><span class="s0">new </span><span class="s1">Hangman(); 
+        h.startNewGame(); 
+    } 
+} 
+ 
+</span></pre>
+</body>
+</html>
